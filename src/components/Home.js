@@ -1,26 +1,33 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import ScoresByWeek from '../apis/ScoresByWeek';
+// import ScoresByWeek from '../apis/ScoresByWeek';
 
 const Home = () => {
-  const [gameWeek, setGameWeek] = useState('');
+  // const [gameWeek, setGameWeek] = useState('');
+  const [results, setResults] = useState();
   const KEY = '5acca2ed7b004d5ebce353ccbec75e95';
 
   useEffect(() => {
     const scores = async () => {
       const { data } = await axios.get(
-        'https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek',
+        'https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/',
         {
           params: {
             format: 'JSON',
             season: '2022REG',
             week: 1,
-            apikey: KEY
+            key: KEY
           }
         }
       );
+      console.log(data);
+      setResults(data);
     };
+    scores();
   }, []);
 
-  return <div>{data}</div>;
+  // console.log(results);
+  return <div>{results}</div>;
 };
+
+export default Home;
