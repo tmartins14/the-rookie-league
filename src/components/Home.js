@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-// import ScoresByWeek from '../apis/ScoresByWeek';
+import KEY from '../apis/apiKey';
 
 const Home = () => {
   // const [gameWeek, setGameWeek] = useState('');
   const [results, setResults] = useState([]);
-  const KEY = '5acca2ed7b004d5ebce353ccbec75e95';
+  // const KEY = KEY;
 
   useEffect(() => {
     const scores = async () => {

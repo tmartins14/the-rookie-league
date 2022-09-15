@@ -12,7 +12,7 @@
 /build
 
 # API Info
-/src/apis/espn.js
+/src/apis/apiKey.js
 
 # misc
 .DS_Store
