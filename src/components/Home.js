@@ -4,18 +4,17 @@ import React, { useEffect, useState } from 'react';
 
 const Home = () => {
   // const [gameWeek, setGameWeek] = useState('');
-  const [results, setResults] = useState();
+  const [results, setResults] = useState([]);
   const KEY = '5acca2ed7b004d5ebce353ccbec75e95';
 
   useEffect(() => {
     const scores = async () => {
+      const season = '2022REG';
+      const week = 1;
       const { data } = await axios.get(
-        'https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/',
+        `https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/${season}/${week}`,
         {
           params: {
-            format: 'JSON',
-            season: '2022REG',
-            week: 1,
             key: KEY
           }
         }
