@@ -1,15 +1,22 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Dropdown from './components/Dropdown';
 import KEY from '../apis/apiKey';
 import '../input.css';
 
 const Home = () => {
   // const [gameWeek, setGameWeek] = useState('');
-  const [results, setResults] = useState([]);
-  const [season, setSeason] = useState('');
-  const [week, setWeek] = useState();
 
   const weeks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+  const weekOptions = weeks.map((week) => {
+    return { label: String(week), value: week };
+  });
+  console.log(weekOptions);
+
+  const [selected, setSelected] = useState();
+  const [results, setResults] = useState([]);
+  const [season, setSeason] = useState('');
+  // const [week, setWeek] = useState();
 
   useEffect(() => {
     // Get Current Week - Default
@@ -22,7 +29,7 @@ const Home = () => {
           }
         }
       );
-      setWeek(data);
+      setSelected(data);
     };
     currentWeek();
   }, []);
@@ -94,7 +101,15 @@ const Home = () => {
         <h3 className="text-lg font-medium leading-6 text-gray-900">Scores</h3>
         <p className="mt-1 max-w-2xl text-sm text-gray-500">Week {week}</p>
       </div>
-      <div className="border-t border-gray-200">{gameScores}</div>
+      <div>
+        <Dropdown
+          label="Select a Week"
+          selected={selected}
+          onSelectedChange={setSelected}
+          options={weekOptions}
+        />
+        <div className="border-t border-gray-200">{gameScores}</div>
+      </div>
     </div>
   );
 };
