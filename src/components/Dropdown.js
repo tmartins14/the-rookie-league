@@ -25,7 +25,7 @@ const Dropdown = ({ options, selected, onSelectedChange, label }) => {
       return null;
     }
     return (
-      <div
+      <option
         key={option.value}
         className="item"
         onClick={() => {
@@ -33,12 +33,26 @@ const Dropdown = ({ options, selected, onSelectedChange, label }) => {
         }}
       >
         {option.label}
-      </div>
+      </option>
     );
   });
 
   return (
-    <div ref={ref} className="ui form">
+    <div ref={ref}>
+      <label className="label">{label}</label>
+      <div className="relative w-full lg:max-w-sm">
+        <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+          {renderedOptions}
+        </select>
+      </div>
+    </div>
+  );
+};
+
+export default Dropdown;
+
+{
+  /* <div ref={ref} className="ui form">
       <div className="field">
         <label className="label">{label}</label>
         <div
@@ -52,8 +66,5 @@ const Dropdown = ({ options, selected, onSelectedChange, label }) => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default Dropdown;
+    </div> */
+}

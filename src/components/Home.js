@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Dropdown from './components/Dropdown';
+import Dropdown from './Dropdown';
 import KEY from '../apis/apiKey';
 import '../input.css';
 
@@ -13,13 +13,13 @@ const Home = () => {
   });
   console.log(weekOptions);
 
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(1);
   const [results, setResults] = useState([]);
-  const [season, setSeason] = useState('');
+  const [season, setSeason] = useState('2022REG');
   // const [week, setWeek] = useState();
 
+  // Get Current Week - Default
   useEffect(() => {
-    // Get Current Week - Default
     const currentWeek = async () => {
       const { data } = await axios.get(
         `https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek`,
@@ -34,10 +34,10 @@ const Home = () => {
     currentWeek();
   }, []);
 
-  console.log(week);
+  console.log('Current Week:', selected);
 
+  // Get Current Season - Default
   useEffect(() => {
-    // Get Current Season - Default
     const currentSeason = async () => {
       const { data } = await axios.get(
         `https://api.sportsdata.io/v3/nfl/scores/json/CurrentSeason`,
@@ -52,11 +52,11 @@ const Home = () => {
     currentSeason();
   }, []);
 
+  // Pull Scores for Selected season and week
   useEffect(() => {
-    // Pull Scores for Selected season and week
     const scores = async () => {
       const { data } = await axios.get(
-        `https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/${season}/${week}`,
+        `https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/${season}/${selected}`,
         {
           params: {
             key: KEY
@@ -99,7 +99,7 @@ const Home = () => {
     <div className="overflow-hidden bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900">Scores</h3>
-        <p className="mt-1 max-w-2xl text-sm text-gray-500">Week {week}</p>
+        <p className="mt-1 max-w-2xl text-sm text-gray-500">Week {selected}</p>
       </div>
       <div>
         <Dropdown
