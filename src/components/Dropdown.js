@@ -7,6 +7,7 @@ const Dropdown = ({ options, selected, onSelectedChange, label }) => {
   useEffect(() => {
     const onBodyClick = (event) => {
       if (ref.current.contains(event.target)) {
+        onSelectedChange(event.target.value);
         return;
       }
       setOpen(false);

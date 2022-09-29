@@ -11,30 +11,29 @@ const Home = () => {
   const weekOptions = weeks.map((week) => {
     return { label: String(week), value: week };
   });
-  console.log(weekOptions);
+  // console.log(weekOptions);
 
   const [selected, setSelected] = useState(1);
   const [results, setResults] = useState([]);
   const [season, setSeason] = useState('2022REG');
-  // const [week, setWeek] = useState();
 
   // Get Current Week - Default
-  useEffect(() => {
-    const currentWeek = async () => {
-      const { data } = await axios.get(
-        `https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek`,
-        {
-          params: {
-            key: KEY
-          }
-        }
-      );
-      setSelected(data);
-    };
-    currentWeek();
-  }, []);
+  // useEffect(() => {
+  //   const currentWeek = async () => {
+  //     const { data } = await axios.get(
+  //       `https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek`,
+  //       {
+  //         params: {
+  //           key: KEY
+  //         }
+  //       }
+  //     );
+  //     setSelected(data);
+  //   };
+  //   currentWeek();
+  // }, []);
 
-  console.log('Current Week:', selected);
+  // console.log('Current Week:', selected);
 
   // Get Current Season - Default
   useEffect(() => {
@@ -54,6 +53,7 @@ const Home = () => {
 
   // Pull Scores for Selected season and week
   useEffect(() => {
+    console.log(selected);
     const scores = async () => {
       const { data } = await axios.get(
         `https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/${season}/${selected}`,
@@ -67,7 +67,7 @@ const Home = () => {
       setResults(data);
     };
     scores();
-  }, []);
+  }, [selected]);
 
   // Render Table
   const gameScores = results.map((result) => {
@@ -94,7 +94,7 @@ const Home = () => {
     );
   });
 
-  console.log(results);
+  // console.log(results);
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6">
